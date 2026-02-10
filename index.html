@@ -71,6 +71,7 @@
       min-height: 100svh;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       padding: 24px 16px;
       box-sizing: border-box;
       perspective: 1000px;
@@ -147,6 +148,35 @@
       overflow: visible;
     }
 
+    #envelope-wrapper.letter-stage {
+      perspective: none;
+    }
+
+    #envelope-wrapper.letter-stage .envelope {
+      opacity: 0;
+      transform: scale(0.96);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .letter.letter-centered {
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      max-width: min(90vw, 420px);
+      margin: 0 auto;
+      opacity: 1;
+      transform: translateY(0);
+      animation: letterRise 0.7s ease forwards;
+      z-index: 5;
+    }
+
+    @keyframes letterRise {
+      0% { transform: translateY(-30%); }
+      100% { transform: translateY(0); }
+    }
+
     .letter::after {
       content: "";
       position: absolute;
@@ -194,7 +224,7 @@
 <div id="envelope-wrapper">
   <div class="envelope" id="envelope">
     <div class="back"></div>
-    <div class="letter">
+    <div class="letter" id="letter">
       <h2>Plan de Valentine’s</h2>
 
       <p>
@@ -223,6 +253,7 @@
   const question = document.getElementById("question");
   const envelopeWrapper = document.getElementById("envelope-wrapper");
   const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
   const song = document.getElementById("song");
 
   function moveNo() {
@@ -246,6 +277,11 @@
 
   envelope.addEventListener("click", () => {
     envelope.classList.add("open");
+    setTimeout(() => {
+      envelopeWrapper.classList.add("letter-stage");
+      envelopeWrapper.appendChild(letter);
+      letter.classList.add("letter-centered");
+    }, 900);
   });
 </script>
 
