@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Valentine</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      margin: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 24px;
+      cursor: pointer;
+    }
+
+    #yes {
+      background: #ff5a7a;
+      color: white;
+    }
+
+    #no {
+      background: #ddd;
+      position: absolute;
+    }
+
+    #letter {
+      display: none;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="question">
+    <img src="../media/photo_valentine.jpeg" alt="Us" />
+    <h2>Serías mi Valentine’s nuevamente?</h2>
+    <button id="yes">Sí</button>
+    <button id="no">No</button>
+  </div>
+
+  <div class="card" id="letter">
+    <h2>Plan de Valentine’s</h2>
+    <p><strong>Fecha:</strong> 13 de Febrero</p>
+    <p><strong>Hora:</strong> 10:00 PM</p>
+    <p><strong>Plan:</strong> Una salidita a la playa.</p>
+    <p>Emocionado de pasar un finde juntitos <3.</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const question = document.getElementById("question");
+    const letter = document.getElementById("letter");
+
+    function moveNo() {
+      noBtn.style.left = Math.random() * 80 + "vw";
+      noBtn.style.top = Math.random() * 80 + "vh";
+    }
+
+    noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("click", moveNo);
+
+    yesBtn.addEventListener("click", () => {
+      question.style.display = "none";
+      letter.style.display = "block";
+    });
+  </script>
+</body>
+</html>
