@@ -38,11 +38,10 @@
     }
 
     .buttons {
-      position: relative;
-      height: 60px;
       display: flex;
       justify-content: center;
       gap: 16px;
+      margin-top: 16px;
     }
 
     button {
@@ -52,6 +51,7 @@
       border-radius: 999px;
       cursor: pointer;
       min-width: 90px;
+      touch-action: manipulation;
     }
 
     #yes {
@@ -61,33 +61,65 @@
 
     #no {
       background: #e5e5e5;
-      position: absolute;
+      position: fixed;
+      left: 50%;
+      transform: translateX(110px);
+      z-index: 10;
     }
 
     /* Letter styling */
     #letter {
       display: none;
-      background: #fffaf0;
-      font-family: "Georgia", serif;
+      background: linear-gradient(#fffdf7, #fff7e6);
+      font-family: "Georgia", "Times New Roman", serif;
       position: relative;
+      padding: 32px 28px;
+      max-width: 420px;
+      border-radius: 12px;
+      box-shadow:
+        0 12px 30px rgba(0,0,0,0.15),
+        inset 0 0 0 1px rgba(0,0,0,0.05);
     }
 
     #letter::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.03),
-        transparent 30%
-      );
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.015),
+          rgba(0,0,0,0.015) 1px,
+          transparent 1px,
+          transparent 4px
+        );
+      border-radius: 12px;
       pointer-events: none;
-      border-radius: 20px;
+    }
+
+    #letter::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #f0e6d8 50%, transparent 50%);
+      border-top-right-radius: 12px;
     }
 
     .letter-content {
       position: relative;
-      line-height: 1.6;
+      line-height: 1.7;
+    }
+
+    .letter-content h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .letter-content p {
+      margin: 16px 0;
     }
 
     @keyframes fadeIn {
@@ -117,14 +149,18 @@
     <div class="letter-content">
       <h2>Plan de Valentine’s</h2>
 
-      <p><strong>Fecha:</strong> 13 de Febrero<br>
-      <strong>Hora:</strong> 10:00 PM</p>
-
-      <p><strong>Plan:</strong><br>
-      Una salidita a la playa.</p>
+      <p>
+        <strong>Fecha:</strong> 13 de Febrero<br>
+        <strong>Hora:</strong> 10:00 PM
+      </p>
 
       <p>
-        Emocionado de pasar un finde juntitos.<br>
+        <strong>Plan:</strong><br>
+        Una salidita a la playa.
+      </p>
+
+      <p>
+        Emocionado de pasar un finde juntitos.<br><br>
         Con amor,<br>
         Edson
       </p>
@@ -139,14 +175,17 @@
     const song = document.getElementById("song");
 
     function moveNo() {
-      const parent = noBtn.parentElement;
-      const x = Math.random() * (parent.offsetWidth - noBtn.offsetWidth);
+      const padding = 20;
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
+
       noBtn.style.left = `${x}px`;
-      noBtn.style.top = `0px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.transform = "none";
     }
 
-    noBtn.addEventListener("touchstart", moveNo);
     noBtn.addEventListener("mouseenter", moveNo);
+    noBtn.addEventListener("touchstart", moveNo);
     noBtn.addEventListener("click", moveNo);
 
     yesBtn.addEventListener("click", () => {
